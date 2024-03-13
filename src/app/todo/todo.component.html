@@ -1,0 +1,132 @@
+
+<section class="vh-100" style="background-color: rgb(25, 128, 118);">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-7">
+
+        <div class="card" id="list1" style="border-radius: .75rem; background-color: #efeded;">
+          <div class="card-body px-5 pt-4" style="padding-bottom: 80px;">
+
+            <h3 class="text-center py-3 rounded-2" style="background-color: rgb(232, 175, 4);">Todo APP</h3>
+
+            <div class="pb-2 mt-5 mb-4">
+              <div class="card">
+                <div class="card-body py-2">
+                  <div class="d-flex flex-row align-items-center">
+                    <input type="text" class="form-control" id="todoInput" placeholder="Add new..."
+                       [(ngModel)]="todoValue">
+                    <div>
+                      <button type="button" class="btn btn-primary px-5" (click)="addTodoItem()">Add</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h5 class="text-white py-2 px-3 mb-0" style="background-color: rgb(105, 105, 105);">Todo List</h5>
+
+              <ul class="list-group bg-white">
+                <li class="list-group-item py-2 rounded-0 border-0" *ngFor="let item of todoList; index as i">
+                  <div class="row w-100 d-flex align-items-center">
+                    <div class="col-1">
+                      <div class="form-check">
+                        <input class="form-check-input me-0" type="checkbox" value="" (change)="addToCompletedList(i)"/>
+                      </div>
+                    </div>
+                    <div class="col-9">{{ item.content }}</div>
+                    <div class="col-2">
+                      <div class="d-flex flex-row justify-content-end mb-1">
+                        <a href="#" class="text-info pe-3" data-bs-toggle="tooltip" title="Edit todo"
+                          (click)="editOpenModal(editContent, i, item, 'todoList')"><i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a href="#" class="text-danger" data-bs-toggle="tooltip" title="Delete todo"
+                          (click)="openModal(content, i, 'todoList')"><i class="fa-solid fa-trash"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <hr class="my-0">
+
+              </ul>
+            </div>
+
+
+            <div *ngIf="todoCompletedList.length > 0">
+              <h5 class="text-white py-2 px-3 mt-4 mb-0" style="background-color: rgb(63, 138, 101);">Completed Todo List</h5>
+
+            <ul class="list-group bg-white">
+              <li class="list-group-item py-2 rounded-0 border-0" *ngFor="let item of todoCompletedList; index as i">
+                <div class="row w-100 d-flex align-items-center">
+                  <div class="col-1">
+                    <div class="form-check">
+                      <input class="form-check-input me-0" type="checkbox" value=""
+                        aria-label="..." checked (change)="changeTodoList(i)"/>
+                    </div>
+                  </div>
+                  <div class="col-9">{{ item.content }}</div>
+                  <div class="col-2">
+                    <div class="d-flex flex-row justify-content-end mb-1">
+                      <a href="#!" class="text-info pe-3" data-bs-toggle="tooltip" title="Edit todo"
+                        (click)="editOpenModal(editContent, i, item, 'todoCompletedList')">
+                        <i class="fa-solid fa-pen"></i>
+                      </a>
+                      <a href="#!" class="text-danger" data-bs-toggle="tooltip" title="Delete todo"
+                        (click)="openModal(content, i, 'todoCompletedList')"><i class="fa-solid fa-trash"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <hr class="my-0">
+            </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Delete</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <strong>Are you sure you want to delete?</strong>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Ok</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #editContent let-modal>`
+  <div class="modal-header py-0 border-0 mb-3">
+    <button type="button" class="btn-close" aria-describedby="modal-title"
+       (click)="modal.dismiss('Cross click')"></button>
+    </div>
+  <div class="modal-body py-0 border-0">
+    <div class="card border-0">
+      <div class="card-body py-2">
+        <div class="d-flex flex-row align-items-center">
+          <input type="text" class="form-control" id="todoInput" placeholder="Add new..."
+             [(ngModel)]="todoValue">
+          <div>
+            <button type="button" class="btn btn-primary px-5" (click)="modal.close('Ok click')">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+`
+</ng-template>
